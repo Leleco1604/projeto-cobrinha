@@ -17,7 +17,9 @@ minha_font = pygame.font.SysFont('Ubuntu', 20)
 # Cronômetro
 tempo = pygame.time.Clock()
 
+
 # Som de comer
+
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 def playNotificationSound():
     pygame.mixer.music.load("som.ogg")
