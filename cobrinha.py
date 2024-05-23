@@ -1,53 +1,47 @@
 class Cobra:
-    def __init__(self, tam_tela = (300, 400), 
-                        posicao = [80, 50], # esquerda, cima
-                        corpo = [[80, 50],[70, 50],[60,50]],
-                        direcao = 'DIREITA'):
-        self.tam_tela = tam_tela
-        self.posicao = posicao
-        self.corpo = corpo
-        self.direcao = direcao
+    def __init__(self):
+        self.corpo = [[100, 50], [90, 50], [80, 50]]
+        self.direcao = 'DIREITA'
+        self.crescer = False
 
-
-    def muda_direcao(self, nova_direcao):
-        if nova_direcao == 'DIREITA' and not self.direcao == 'ESQUERDA':
+    def muda_direcao(self, direcao):
+        if direcao == 'DIREITA' and not self.direcao == 'ESQUERDA':
             self.direcao = 'DIREITA'
-        if nova_direcao == 'ESQUERDA' and not self.direcao == 'DIREITA':
+        if direcao == 'ESQUERDA' and not self.direcao == 'DIREITA':
             self.direcao = 'ESQUERDA'
-        if nova_direcao == 'CIMA' and not self.direcao == 'BAIXO':
+        if direcao == 'CIMA' and not self.direcao == 'BAIXO':
             self.direcao = 'CIMA'
-        if nova_direcao == 'BAIXO' and not self.direcao == 'CIMA':
+        if direcao == 'BAIXO' and not self.direcao == 'CIMA':
             self.direcao = 'BAIXO'
 
-
-    def move(self, posicao_comida):
+    def move(self, pos_comida):
+        head = self.corpo[0][:]
         if self.direcao == 'DIREITA':
-            self.posicao[0] += 10
+            head[0] += 10
         if self.direcao == 'ESQUERDA':
-            self.posicao[0] -= 10
-        if self.direcao == 'BAIXO':
-            self.posicao[1] += 10
+            head[0] -= 10
         if self.direcao == 'CIMA':
-            self.posicao[1] -= 10
+            head[1] -= 10
+        if self.direcao == 'BAIXO':
+            head[1] += 10
 
-        # Adiciona pedaço do corpo da cobra na cabeça
-        self.corpo.insert(0, list(self.posicao))
+        if head == pos_comida:
+            self.crescer = True
+        else:
+            self.corpo.pop()
 
-        # Confere se comeu uma comida
-        if self.posicao == posicao_comida:
+        self.corpo.insert(0, head)
+
+        if self.crescer:
+            self.corpo.append(self.corpo[-1])
+            self.crescer = False
             return True
-
-        # Se não comeu remove o último elemento
-        self.corpo.pop()
         return False
 
     def colisao(self):
-        if self.posicao[0] > (self.tam_tela[0] - 10) or self.posicao[0] < 0:
+        head = self.corpo[0]
+        if head in self.corpo[1:]:
             return True
-
-        if self.posicao[1] > (self.tam_tela[1] - 10) or self.posicao[1] < 0:
+        if head[0] >= 300 or head[0] < 0 or head[1] >= 400 or head[1] < 0:
             return True
-
-        for pedaco in self.corpo[1:]:
-            if self.posicao == pedaco:
-                return True
+        return False
