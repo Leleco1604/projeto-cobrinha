@@ -75,7 +75,7 @@ def main():
         sound.play()
 
     # Música de fundo
-    pygame.mixer.music.load("musica_fundo.mp3")
+    pygame.mixer.music.load("TA VENDO AQUELA LUA - EXALTASAMBA.mid")
     pygame.mixer.music.play(-1)  # O parâmetro -1 faz a música tocar em loop
 
     cobra = Cobra()
