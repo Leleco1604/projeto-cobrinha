@@ -138,7 +138,7 @@ def main():
                             pygame.Rect(pos[0], pos[1], 10, 10))
 
         # Desenha a comida na tela
-        pygame.draw.rect(tela, pygame.Color(150, 200, 100),
+        pygame.draw.rect(tela, pygame.Color(255, 0, 0),
                         pygame.Rect(posicao_comida[0], posicao_comida[1], 10, 10))
 
         # Atualiza a tela a cada frame
